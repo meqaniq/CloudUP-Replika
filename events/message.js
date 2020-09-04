@@ -4,26 +4,9 @@ module.exports = async message => {
   
   let client = message.client;
   if(message.author.bot) return;
-  const prefixdata = await data.fetch(`codare.${message.guild.id}`)
+  const prefixdata = await data.fetch(`codaree.${message.guild.id}`)
   if(!prefixdata) {
-    
-    if(message.content.startsWith(`<@!${client.user.id}>`)) {
-    let command = message.content.split(' ')[1].slice(0);
-    let params = message.content.split(' ').slice(2);
-    let perms = client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) return;
-      message.mentions.users.delete(client.user.id)
-      message.mentions.members.delete(client.user.id)
-      cmd.run(client, message, params, perms);
-     }
-} else {
+
   let ünlem = '!'
   let soru = '?'
   if(message.content.startsWith('!')) {
@@ -56,31 +39,11 @@ module.exports = async message => {
       cmd.run(client, message, params, perms);
      }
   }
-  }
 }
     
   } else {
-
-if(message.content.startsWith(`<@!${client.user.id}>`)) {
-    let command = message.content.split(' ')[1].slice(0);
-    let params = message.content.split(' ').slice(2);
-    let perms = client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) return;
-      message.mentions.users.delete(client.user.id)
-      message.mentions.members.delete(client.user.id)
-      cmd.run(client, message, params, perms);
-     }
-} else {
-  let prefixx = prefixdata.find(a => a.prefix === message.content.split(' ')[0].slice(1));
-  if(message.content.startsWith(prefixx)) {
-    let command = message.content.split(' ')[0].slice(prefixx.length);
+  if(message.content.startsWith(prefixdata.find(a => a.prefix === message.content.split(' ')[0]))) {
+    let command = message.content.split(' ')[0].slice(prefixdata.prefix.length);
     let params = message.content.split(' ').slice(1);
     let perms = client.elevation(message);
     let cmd;
@@ -93,7 +56,6 @@ if(message.content.startsWith(`<@!${client.user.id}>`)) {
       if (perms < cmd.conf.permLevel) return;
       cmd.run(client, message, params, perms);
      }
-}
 }
     
   }
