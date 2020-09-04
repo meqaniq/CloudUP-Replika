@@ -1,65 +1,22 @@
 const Discord = require('discord.js')
-const data = require('quick.db')
 module.exports = async message => {
   
   let client = message.client;
-  if(message.author.bot) return;
-  const prefixdata = await data.fetch(`codare3223.${message.guild.id}`)
-  if(!prefixdata) {
+  if (message.author.bot) return;
+  let prefix = client.ayarlar.prefix;
+  if (!message.content.startsWith(prefix)) return;
+  let command = message.content.split(' ')[0].slice(prefix.length);
+  let params = message.content.split(' ').slice(1);
+  let perms = client.elevation(message);
+  let cmd;
+  if (client.commands.has(command)) {
+    cmd = client.commands.get(command);
+  } else if (client.aliases.has(command)) {
+    cmd = client.commands.get(client.aliases.get(command));
+  }
+  if (cmd) {
+    if (perms < cmd.conf.permLevel) return;
+    cmd.run(client, message, params, perms);
+  }
 
-  let ünlem = '!'
-  let soru = '?'
-  if(message.content.startsWith('!')) {
-    let command = message.content.split(' ')[0].slice(ünlem.length);
-    let params = message.content.split(' ').slice(1);
-    let perms = client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) return;
-      cmd.run(client, message, params, perms);
-     }
-  } else {
-    if(message.content.startsWith('?')) {
-    let command = message.content.split(' ')[0].slice(soru.length);
-    let params = message.content.split(' ').slice(1);
-    let perms = client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) return;
-      cmd.run(client, message, params, perms);
-     }
-  }
-}
-    
-  } else {
-  let prefixd = prefixdata.find(a => a.prefix2.split(' ')[0] === message.content.split(' ')[0])
-  if(prefixd) {
-  if(message.content.startsWith(prefixd.prefix2.split(' ')[0])) {
-    let command = message.content.split(' ')[0].slice(prefixd.prefix2.split(' ')[1].length)
-    let params = message.content.split(' ').slice(1);
-    let perms = client.elevation(message);
-    let cmd;
-    if (client.commands.has(command)) {
-      cmd = client.commands.get(command);
-    } else if (client.aliases.has(command)) {
-      cmd = client.commands.get(client.aliases.get(command));
-    }
-    if (cmd) {
-      if (perms < cmd.conf.permLevel) return;
-      cmd.run(client, message, params, perms);
-     }
-  }
-}
-    
-  }
 };
