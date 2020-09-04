@@ -4,7 +4,7 @@ module.exports = async message => {
   
   let client = message.client;
   if(message.author.bot) return;
-  const prefixdata = await data.fetch(`codare32.${message.guild.id}`)
+  const prefixdata = await data.fetch(`codare322.${message.guild.id}`)
   if(!prefixdata) {
 
   let ünlem = '!'
