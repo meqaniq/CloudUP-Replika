@@ -8,7 +8,7 @@ const http = require("http");
 const express = require("express");
 require("./util/eventLoader")(client);
 
-client.ayarlar = { "token": "TOKEN", "prefix": "PREFİX", "sahip": "SAHİP" }
+client.ayarlar = { "token": "NzUxMzE0MDQ1NTI4OTY1MjAw.X1HRuw.X3DfybnJRgKlHBh8H9zeTYR7Lnw", "sahip": "613700645173592086" }
 
 const app = express();
 app.get("/", (request, response) => {
@@ -109,6 +109,6 @@ var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g
 client.login(client.ayarlar.token);
 
 client.on('ready', async () => {
-client.user.setActivity('chimp#0110, tertemiz altyapı!')
-client.user.setStatus('idle')
+client.user.setStatus('online')
+client.channels.cache.get('749043540025409686').send('Hazır.')
 })
