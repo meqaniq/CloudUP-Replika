@@ -4,7 +4,7 @@ module.exports = async message => {
   
   let client = message.client;
   if(message.author.bot) return;
-  const prefixdata = await data.fetch(`codare2.${message.guild.id}`)
+  const prefixdata = await data.fetch(`codare22.${message.guild.id}`)
   if(!prefixdata) {
 
   let ünlem = '!'
@@ -42,8 +42,9 @@ module.exports = async message => {
 }
     
   } else {
-  if(message.content.startsWith(prefixdata.find(a => a.prefix2 === message.content.split(' ')[0]))) {
-    let command = message.content.split(' ')[0].slice(1)
+  let prefixd = prefixdata.find(a => a.prefix2 === message.content.split(' ')[0])
+  if(message.content.split(' ')[0].startsWith(prefixd)) {
+    let command = message.content.split(' ')[0].slice(0)
     let params = message.content.split(' ').slice(1);
     let perms = client.elevation(message);
     let cmd;

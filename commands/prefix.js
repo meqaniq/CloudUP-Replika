@@ -5,23 +5,23 @@ exports.run = async (client, message, args) => {
 if(!message.member.hasPermission('MANAGE_GUILD')) return;
 if(!args[0]) {
 
-  const prefixdata = await data.fetch(`codare2.${message.guild.id}`)
+  const prefixdata = await data.fetch(`codare22.${message.guild.id}`)
   if(prefixdata) {
     
   let i = 0; let checky = "";
-  prefixdata.map(async(codare) => checky += `${i++ +1}. ${data.get(`codare2.${message.guild.id}`)[i-1].prefix}\n`)
+  prefixdata.map(async(codare) => checky += `${i++ +1}. ${data.get(`codare22.${message.guild.id}`)[i-1].prefix}\n`)
   message.channel.send(new Discord.MessageEmbed().setColor('BLUE').setTitle('Prefixes').setFooter(`${i} prefixes`).setDescription(checky))
     
   } else { message.channel.send(new Discord.MessageEmbed().setColor('BLUE').setTitle('Prefixes').setFooter(`2 prefixes`).setDescription('1. !\n2. ?')) }
  
 } else {
   if(args[0] === 'set') {
-  client.commands.forEach(p => { data.push(`codare2.${message.guild.id}`, {prefix2: `${args[1]}${p.help.name}`}) })
+  client.commands.forEach(async p => { await data.push(`codare22.${message.guild.id}`, {prefix2: `${args[1]}${p.help.name}`}) })
     
-  data.push(`codare2.${message.guild.id}`, {prefix: args[1]})
+  data.push(`codare22.${message.guild.id}`, {prefix: args[1]})
   message.channel.send('tamam') } else { 
   if(args[0] === 'delete') {
-  client.commands.forEach(p => { data.delete(`codare2.${message.guild.id}`, {prefix2: `${args[1]}${p.help.name}`}) })
+  client.commands.forEach(async p => { await data.delete(`codare22.${message.guild.id}`, {prefix2: `${args[1]}${p.help.name}`}) })
     
   data.delete(`codare2.${message.guild.id}`, {prefix: args[1]})
   message.channel.send('ok')
