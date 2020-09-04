@@ -7,9 +7,9 @@ if(!args[0]) {
 
   const prefixdata = await data.fetch(`codare322.${message.guild.id}`)
   if(prefixdata) {
-    
-  let i = 0; let checky = "";
-  prefixdata.map(async(codare) => checky += `${i++ +1}. ${data.get(`cod.${message.guild.id}`)[i-1].annen}\n`)
+  const nbr = await data.fetch(`cod.${message.guild.id}`)
+  let i = 1; let checky = "";
+  nbr.map(async(codare) => checky += `${i++ +1}. ${data.get(`cod.${message.guild.id}`)[i-1].annen}\n`)
   message.channel.send(new Discord.MessageEmbed().setColor('BLUE').setTitle('Prefixes').setFooter(`${i} prefixes`).setDescription(checky))
     
   } else { message.channel.send(new Discord.MessageEmbed().setColor('BLUE').setTitle('Prefixes').setFooter(`2 prefixes`).setDescription('1. !\n2. ?')) }
@@ -25,6 +25,7 @@ if(!args[0]) {
   
   let komutlar = data.fetch(`codare322.${message.guild.id}`);
   if(komutlar) {
+  if(!komutlar.find(c => c.split(' ')[1] === komut)) return message.channel.send('I do not have this prefix registered.')
   if(komutlar.length == 2) {
   data.delete(`codare322.${message.guild.id}`)
   message.channel.send(`Tag "${komut}" successfully deleted.`)
