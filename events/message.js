@@ -23,8 +23,11 @@ module.exports = async message => {
       message.mentions.members.delete(client.user.id)
       cmd.run(client, message, params, perms);
      }
-} else if(message.content.startsWith('!') || message.content.startsWith('?')) {
-    let command = message.content.split(' ')[0].slice(0);
+} else {
+  let ünlem = '!'
+  let soru = '?'
+  if(message.content.startsWith('!')) {
+    let command = message.content.split(' ')[0].slice(ünlem.length);
     let params = message.content.split(' ').slice(1);
     let perms = client.elevation(message);
     let cmd;
@@ -35,10 +38,25 @@ module.exports = async message => {
     }
     if (cmd) {
       if (perms < cmd.conf.permLevel) return;
-      message.mentions.users.delete(client.user.id)
-      message.mentions.members.delete(client.user.id)
       cmd.run(client, message, params, perms);
      }
+  } else {
+    if(message.content.startsWith('?')) {
+    let command = message.content.split(' ')[0].slice(soru.length);
+    let params = message.content.split(' ').slice(1);
+    let perms = client.elevation(message);
+    let cmd;
+    if (client.commands.has(command)) {
+      cmd = client.commands.get(command);
+    } else if (client.aliases.has(command)) {
+      cmd = client.commands.get(client.aliases.get(command));
+    }
+    if (cmd) {
+      if (perms < cmd.conf.permLevel) return;
+      cmd.run(client, message, params, perms);
+     }
+  }
+  }
 }
     
   } else {
@@ -62,7 +80,7 @@ if(message.content.startsWith(`<@!${client.user.id}>`)) {
 } else {
   let prefixx = prefixdata.find(a => a.prefix === message.content.split(' ')[0].slice(1));
   if(message.content.startsWith(prefixx)) {
-    let command = message.content.split(' ')[0].slice(0);
+    let command = message.content.split(' ')[0].slice(prefixx.length);
     let params = message.content.split(' ').slice(1);
     let perms = client.elevation(message);
     let cmd;
@@ -73,8 +91,6 @@ if(message.content.startsWith(`<@!${client.user.id}>`)) {
     }
     if (cmd) {
       if (perms < cmd.conf.permLevel) return;
-      message.mentions.users.delete(client.user.id)
-      message.mentions.members.delete(client.user.id)
       cmd.run(client, message, params, perms);
      }
 }
