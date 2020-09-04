@@ -25,7 +25,7 @@ if(!args[0]) {
   
   let komutlar = data.fetch(`codare322.${message.guild.id}`);
   if(komutlar) {
-  if(komutlar.length === 2) {
+  if(komutlar.length == 2) {
   data.delete(`codare322.${message.guild.id}`)
   message.channel.send(`Tag "${komut}" successfully deleted.`)
   } else {
@@ -38,7 +38,7 @@ if(!args[0]) {
   } }
   let annen = data.fetch(`cod.${message.guild.id}`);
   if(annen) {
-  if(annen.length === 2) {
+  if(annen.length == 2) {
   data.delete(`annen.${message.guild.id}`)
   message.channel.send(`Tag "${komut}" successfully deleted.`)
   } else {
@@ -49,7 +49,6 @@ if(!args[0]) {
   data.set(`cod.${message.guild.id}`, ex)
   })
   }
-  message.channel.send(`Tag "${komut}" successfully deleted.`)
   } }
   } 
 }
