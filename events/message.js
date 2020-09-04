@@ -4,7 +4,7 @@ module.exports = async message => {
   
   let client = message.client;
   if(message.author.bot) return;
-  const prefixdata = await data.fetch(`codare322.${message.guild.id}`)
+  const prefixdata = await data.fetch(`codare3223.${message.guild.id}`)
   if(!prefixdata) {
 
   let ünlem = '!'
@@ -43,6 +43,7 @@ module.exports = async message => {
     
   } else {
   let prefixd = prefixdata.find(a => a.prefix2.split(' ')[0] === message.content.split(' ')[0])
+  if(prefixd) {
   if(message.content.startsWith(prefixd.prefix2.split(' ')[0])) {
     let command = message.content.split(' ')[0].slice(prefixd.prefix2.split(' ')[1].length)
     let params = message.content.split(' ').slice(1);
@@ -57,6 +58,7 @@ module.exports = async message => {
       if (perms < cmd.conf.permLevel) return;
       cmd.run(client, message, params, perms);
      }
+  }
 }
     
   }
